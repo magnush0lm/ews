@@ -9,6 +9,13 @@ import (
 type CreateItem struct {
 	XMLName                struct{}          `xml:"m:CreateItem"`
 	MessageDisposition     string            `xml:"MessageDisposition,attr"`
+	SavedItemFolderId      SavedItemFolderId `xml:"m:SavedItemFolderId"`
+	Items                  Items             `xml:"m:Items"`
+}
+
+type CreateMeetingItem struct {
+	XMLName                struct{}          `xml:"m:CreateItem"`
+	MessageDisposition     string            `xml:"MessageDisposition,attr"`
 	SendMeetingInvitations string            `xml:"SendMeetingInvitations,attr"`
 	SavedItemFolderId      SavedItemFolderId `xml:"m:SavedItemFolderId"`
 	Items                  Items             `xml:"m:Items"`
@@ -118,7 +125,7 @@ func CreateMessageItem(c Client, m ...Message) error {
 // https://docs.microsoft.com/en-us/exchange/client-developer/web-service-reference/createitem-operation-calendar-item
 func CreateCalendarItem(c Client, ci ...CalendarItem) error {
 
-	item := &CreateItem{
+	item := &CreateMeetingItem{
 		SendMeetingInvitations: "SendToAllAndSaveCopy",
 		SavedItemFolderId:      SavedItemFolderId{DistinguishedFolderId{Id: "calendar"}},
 	}
